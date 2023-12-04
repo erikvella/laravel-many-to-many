@@ -20,6 +20,8 @@ class ProjectTecnologyTableSeeder extends Seeder
             $project = Project::inRandomOrder()->first();
             // estraggo l'id della tecnologia random
             $tecnology_id = Tecnology::inRandomOrder()->first()->id;
+
+            $project->tecnologies()->attach($tecnology_id);
         }
     }
 }
