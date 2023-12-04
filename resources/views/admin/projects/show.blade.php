@@ -10,6 +10,15 @@
             <p>Tipologia : <strong>{{ $project->type->name }}</strong></p>
         @endif
 
+        <h1>Tecnologie usate:
+
+            @forelse ($project->tecnologies as $tecnology)
+                <span class="badge text-bg-info">{{ $tecnology->name }}</span>
+            @empty
+                <span class="badge text-bg-warning">Non sono presenti tecnologie per questo progetto</span>
+            @endforelse
+        </h1>
+
 
         <div>
             <img class="show-img" src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Tecnology;
 use App\Http\Requests\ProjectRequest;
 use App\Functions\Helper;
 use Illuminate\Support\Facades\Storage;
@@ -39,7 +40,8 @@ class ProjectController extends Controller
         $route = route('admin.projects.store');
         $project = null;
         $types = Type::all();
-        return view('admin.projects.create-edit' , compact('title' , 'method' , 'route' , 'project' , 'types'));
+        $tecnologies = Tecnology::all();
+        return view('admin.projects.create-edit' , compact('title' , 'method' , 'route' , 'project' , 'types' , 'tecnologies'));
 
     }
 
@@ -66,7 +68,15 @@ if(array_key_exists('image' , $form_data)){
 
 }
 
-        $new_project = Project::create($form_data);
+$new_project = Project::create($form_data);
+
+// se trovo la chiave 'tecnologies' significa che sono stati selzionate delle tecnologie
+// questa operazione la si fa dopo aver create un nuovo elemento
+if(array_key_exists('tecnologies' , $form_data)){
+$new_project->tecnologies()->attach($form_data['tecnologies']);
+}
+
+
 
         return redirect()->route('admin.projects.show' , $new_project);
 
@@ -94,9 +104,10 @@ if(array_key_exists('image' , $form_data)){
         $title = 'Modifica il progetto';
         $method = 'PUT';
         $types = Type::all();
+        $tecnologies = Tecnology::all();
         $route = route('admin.projects.update' , $project);
 
-        return view('admin.projects.create-edit' , compact('title' , 'method' , 'route' , 'project' , 'types'));
+        return view('admin.projects.create-edit' , compact('title' , 'method' , 'route' , 'project' , 'types' , 'tecnologies'));
 
     }
 
