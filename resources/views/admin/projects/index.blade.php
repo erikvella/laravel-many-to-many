@@ -29,7 +29,9 @@
                         <td>{{ $project->type?->name ?? '-' }}</td>
                         <td>
                             @forelse ($project->tecnologies as $tecnology)
-                                <span class="badge text-bg-info">{{ $tecnology->name }}</span>
+                                <a href="#">
+                                    <span class="badge text-bg-info">{{ $tecnology->name }}</span>
+                                </a>
                             @empty
                                 -
                             @endforelse

@@ -39,8 +39,8 @@ class ProjectController extends Controller
         $method = 'POST';
         $route = route('admin.projects.store');
         $project = null;
-        $types = Type::all();
         $tecnologies = Tecnology::all();
+        $types = Type::all();
         return view('admin.projects.create-edit' , compact('title' , 'method' , 'route' , 'project' , 'types' , 'tecnologies'));
 
     }
@@ -144,6 +144,15 @@ $new_project->tecnologies()->attach($form_data['tecnologies']);
 
         $form_data['date'] = date('Y/m/d');
         $project->update($form_data);
+
+        if(array_key_exists('tecnologies' , $form_data)){
+            // aggiorno le relazioni tra i post e i tag eliminando le eventuali relazioni che sono state tolte e aggiundendo le nuove
+            // sync accetta un array creando tutte le relazioni tra i progetti e le tecnologie ed eliminando le eventuali relazioni che sono state tolte
+             $project->tecnologies()->sync($form_data['tecnologies']);
+        }else{
+           $project->tecnologies()->detach();
+        }
+
         return redirect()->route('admin.projects.show' , $project);
     }
 
@@ -155,6 +164,10 @@ $new_project->tecnologies()->attach($form_data['tecnologies']);
      */
     public function destroy(Project $project)
     {
+        // non elimino le relazioni tra progetti e tecnologie perchè nella migration ho messo: cascadeOnDelete();
+// altrimenti avrei dovuto scrivere questo: $project->tecnologies()->detach();
+
+
         // se il progetto contiene un'immagine , la devo eliminare
         if($project->image){
             Storage::disk('public')->delete($project->image);

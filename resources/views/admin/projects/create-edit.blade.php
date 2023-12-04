@@ -54,8 +54,12 @@
                     <h2>Seleziona le tecnologie</h2>
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                         @foreach ($tecnologies as $tecnology)
-                            <input type="checkbox" class="btn-check" name="btnradio" id="tecnology_{{ $tecnology->id }}"
-                                autocomplete="off" name="tecnologies[]" value="{{ $tecnology->id }}" checked>
+                            <input type="checkbox" class="btn-check" id="tecnology_{{ $tecnology->id }}" autocomplete="off"
+                                name="tecnologies[]" value="{{ $tecnology->id }}"
+                                @if ($errors->any() && in_array($tecnology->id, old('tecnologies', []))) checked
+                                @elseif (!$errors->any() && $project?->tecnologies->contains($tecnology))
+                                checked @endif>
+
                             <label class="btn btn-outline-primary"
                                 for="tecnology_{{ $tecnology->id }}">{{ $tecnology->name }}</label>
                         @endforeach

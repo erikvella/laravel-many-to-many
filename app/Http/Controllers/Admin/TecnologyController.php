@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tecnology;
+use App\Models\Project;
 use Illuminate\Support\Str;
 use App\Functions\Helper;
 
@@ -20,6 +21,12 @@ class TecnologyController extends Controller
         $tecnologies = Tecnology::all();
         return view('admin.tecnologies.index' , compact('tecnologies'));
     }
+
+
+    public function projectsTecnologies(Tecnology $tecnology){
+dd($tecnology->id);
+    }
+
 
     /**
      * Show the form for creating a new resource.
