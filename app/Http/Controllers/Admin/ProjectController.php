@@ -93,9 +93,10 @@ if(array_key_exists('image' , $form_data)){
     {
         $title = 'Modifica il progetto';
         $method = 'PUT';
+        $types = Type::all();
         $route = route('admin.projects.update' , $project);
 
-        return view('admin.projects.create-edit' , compact('title' , 'method' , 'route' , 'project'));
+        return view('admin.projects.create-edit' , compact('title' , 'method' , 'route' , 'project' , 'types'));
 
     }
 
