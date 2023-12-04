@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects_tecnologies', function (Blueprint $table) {
+        Schema::create('project_tecnology', function (Blueprint $table) {
             // colonna in relazione con projects
            $table->unsignedBigInteger('project_id');
             //  creazione della foreign key della colonna project_id
