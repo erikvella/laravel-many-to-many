@@ -24,7 +24,8 @@ class TecnologyController extends Controller
 
 
     public function projectsTecnologies(Tecnology $tecnology){
-dd($tecnology->id);
+       $projects = $tecnology->project;
+       dd($projects);
     }
 
 
