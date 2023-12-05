@@ -25,9 +25,20 @@ class ProjectController extends Controller
             $project = Project::where('title' , 'LIKE' , '%' , $_GET['toSearch'] , '%')->paginate(20);
         }else{
 
-            $projects = Project::orderBy('id' , 'desc')->paginate(10);
+            $projects = Project::orderBy('id' , 'desc')->paginate(20);
         }
-        return view('admin.projects.index' , compact('projects'));
+
+       $direction = 'desc';
+
+        return view('admin.projects.index' , compact('projects' , 'direction'));
+    }
+
+    public function orderBy($direction , $column){
+        // se mi arriva in questo modo ogni volta che clicco inverto la direction
+      $direction = $direction == 'desc' ? 'asc' : 'desc' ;
+    //   se inverti l'ordine di $column e $direction nella tonda da errore php
+      $projects = Project::orderBy( $column , $direction)->paginate(20);
+      return view('admin.projects.index' , compact('projects' , 'direction'));
     }
 
 

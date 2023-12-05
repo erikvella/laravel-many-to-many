@@ -10,12 +10,20 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nome progetto</th>
+                    <th scope="col">
+                        <a href="{{ route('admin.order-by', ['direction' => $direction, 'column' => 'id']) }}">ID</a>
+                    </th>
+                    <th scope="col">
+                        <a href="{{ route('admin.order-by', ['direction' => $direction, 'column' => 'title']) }}">Nome
+                            Progetto</a>
+                    </th>
                     <th scope="col">Descrizione progetto</th>
                     <th scope="col">Tipologia progetto</th>
                     <th scope="col">Tecnologie usate</th>
-                    <th scope="col">Data rilascio del progetto</th>
+                    <th scope="col">
+                        <a href="{{ route('admin.order-by', ['direction' => $direction, 'column' => 'date']) }}">Data di
+                            creazione</a>
+                    </th>
                     <th scope="col">Azioni</th>
                 </tr>
             </thead>
