@@ -25,7 +25,7 @@ class TecnologyController extends Controller
 
     public function projectsTecnologies(Tecnology $tecnology){
         $projects = $tecnology->projects;
-       dd($projects);
+        return view('admin.tecnologies.projectsTecnologies' , compact('projects' , 'tecnology'));
     }
 
 
